@@ -3,11 +3,15 @@ CP1404/CP5632 - Practical
 Broken program to determine score status
 """
 
+import random
+
 
 def main():
     score = float(input("Enter score: "))
     score_category = determine_score_category(score)
-    print(score_category)
+    print("The entered score is", score_category)
+    score_category = determine_score_category(random.randint(0, 100))
+    print("The randomly generated score is", score_category)
 
 
 def determine_score_category(score):
