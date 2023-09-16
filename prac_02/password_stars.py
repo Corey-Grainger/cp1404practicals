@@ -2,6 +2,7 @@
 
 MINIMUM_PASSWORD_LENGTH = 8
 
+
 def main():
     password_entered = get_password()
     print_line_of_characters(len(password_entered))
@@ -19,4 +20,4 @@ def get_password():
     return password_entered
 
 
-
+main()
