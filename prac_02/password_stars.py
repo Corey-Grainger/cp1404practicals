@@ -4,11 +4,13 @@ MINIMUM_PASSWORD_LENGTH = 8
 
 
 def main():
+    """Get a user password and print a line of stars the length of teh password"""
     password_entered = get_password(MINIMUM_PASSWORD_LENGTH)
     print_line_of_characters(len(password_entered))
 
 
 def print_line_of_characters(length):
+    """Print a length line of *'s"""
     print("*" * length)
 
 
