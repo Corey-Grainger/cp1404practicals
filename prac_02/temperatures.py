@@ -9,6 +9,7 @@ Q - Quit"""
 
 
 def main():
+    """Convert temperatures between Celsius and Fahrenheit."""
     print(MENU)
     choice = input(">>> ").upper()
     while choice != "Q":

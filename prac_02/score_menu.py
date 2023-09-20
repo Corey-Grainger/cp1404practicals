@@ -34,6 +34,7 @@ MAXIMUM_SCORE = 100
 
 
 def main():
+    """Determine the category of scores and print lines of stars the same length as the score."""
     print("Welcome to the Score Menu")
     score = get_valid_number("Enter score: ", MINIMUM_SCORE, MAXIMUM_SCORE)
     print(MENU)
@@ -54,6 +55,7 @@ def main():
 
 
 def get_valid_number(prompt, low, high):
+    """Get a score between low and high."""
     number = int(input(prompt))
     while number < low or number > high:
         print("Invalid input")
@@ -62,6 +64,7 @@ def get_valid_number(prompt, low, high):
 
 
 def determine_score_category(score):
+    """Determine the result category of score."""
     if score < 0 or score > 100:
         return "Invalid score"
     if score < 50:
@@ -72,6 +75,7 @@ def determine_score_category(score):
 
 
 def print_line_of_characters(length, character="*"):
+    """Print a line of length character."""
     print(character * length)
 
 
