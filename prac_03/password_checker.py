@@ -23,13 +23,15 @@ def main():
     if SPECIAL_CHARS_REQUIRED:
         print(f"\tand 1 or more special characters: {SPECIAL_CHARACTERS}")
     password = input("> ")
-    while not is_valid_password(password):
+    while not is_valid_password(password, MIN_UPPERCASE, MIN_LOWERCASE, MIN_DIGIT, MIN_SPECIAL, SPECIAL_CHARS_REQUIRED,
+                                SPECIAL_CHARACTERS):
         print("Invalid password!")
         password = input("> ")
     print(f"Your {len(password)}-character password is valid: {password}")
 
 
-def is_valid_password(password):
+def is_valid_password(password, min_uppercase, min_lowercase, min_digit, min_special, special_chars_required,
+                      special_characters):
     """Determine if the provided password is valid."""
     count_lower = 0
     count_upper = 0
@@ -40,13 +42,13 @@ def is_valid_password(password):
             count_upper += 1
         if char.islower():
             count_lower += 1
-        if char in SPECIAL_CHARACTERS:
+        if char in special_characters:
             count_special += 1
         if char.isdigit():
             count_digit += 1
-    if count_upper < MIN_UPPERCASE or count_lower < MIN_LOWERCASE or count_digit < MIN_DIGIT:
+    if count_upper < min_uppercase or count_lower < min_lowercase or count_digit < min_digit:
         return False
-    if SPECIAL_CHARS_REQUIRED and count_special < MIN_SPECIAL:
+    if special_chars_required and count_special < min_special:
         return False
     return True
 
