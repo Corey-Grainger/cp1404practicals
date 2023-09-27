@@ -32,7 +32,7 @@ def main():
 
 def is_valid_password(password, min_length=8, max_length=20, min_uppercase=1, min_lowercase=1, min_digit=1,
                       min_special=1, special_chars_required=True, special_characters="!@#$%^&*()_-=+`~,./'[]<>?{}|\\"):
-    """Determine if the provided password is valid."""
+    """Determine if password is a valid password."""
     count_lower = 0
     count_upper = 0
     count_digit = 0
