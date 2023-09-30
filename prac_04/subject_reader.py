@@ -7,6 +7,7 @@ FILENAME = "subject_data.txt"
 
 
 def main():
+    """Print the data from a correctly formatted subject data file"""
     data = get_data()
     for datum in data:
         print(f"{datum[0]} is taught by {datum[1]:12} and has {datum[2]:3} students")
