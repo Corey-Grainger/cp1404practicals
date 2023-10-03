@@ -10,7 +10,7 @@ for i in range(5):
             is_valid_number = True
         except ValueError:
             print("Number must be a valid integer")
-    numbers.append(number)  # Input validation ensures number is defined
+    numbers.append(number)  # Error checking ensures number is defined
 print(f"The first number is {numbers[0]}")
 print(f"The last number is {numbers[-1]}")
 print(f"The smallest number is {min(numbers)}")
