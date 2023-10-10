@@ -3,7 +3,12 @@ Word Occurrences Program
 Estimated: 25 minutes
 Actual: 15 minutes"""
 
+SPECIAL_CHARACTERS = "!@#$%^&*()_-=+`~,./'[]<>?{}|\\"
+
 string = input("Text: ").lower()
+for character in string:
+    if character in SPECIAL_CHARACTERS:
+        string = string.replace(character, '')
 words = string.split()
 words.sort()
 words_to_characters_in_word = {}
