@@ -1,7 +1,7 @@
 """CP1404 Week 06 Practicals
 Guitar Class
 Estimate: 15 minutes
-Started: 2:50pm
+Commenced: 2:50pm
 Completed: 3:06pm"""
 
 
