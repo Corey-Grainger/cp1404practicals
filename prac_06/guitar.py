@@ -22,13 +22,13 @@ class Guitar:
         """Return the string version of a guitar."""
         return f"{self.name} ({self.year}) : ${self.cost:.2f})"
 
-    def get_age(self, current_year=system_clock_year):
+    def get_age(self):
         """Gets the age of guitar by subtracting its year of manufacture from current year."""
-        return current_year - self.year
+        return self.system_clock_year - self.year
 
-    def is_vintage(self, vintage_threshold=VINTAGE_THRESHOLD):
+    def is_vintage(self):
         """Determine if guitar is vintage."""
-        return self.get_age() >= vintage_threshold
+        return self.get_age() >= self.VINTAGE_THRESHOLD
 
 
 if __name__ == '__main__':
