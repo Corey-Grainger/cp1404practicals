@@ -8,7 +8,7 @@ import datetime
 
 
 class Guitar:
-    """Represent a guitar object"""
+    """Represent a guitar object."""
     system_clock_year = datetime.date.today().year
     VINTAGE_THRESHOLD = 50
 
@@ -27,7 +27,7 @@ class Guitar:
         return current_year - self.year
 
     def is_vintage(self, vintage_threshold=VINTAGE_THRESHOLD):
-        """Determine if guitar is vintage"""
+        """Determine if guitar is vintage."""
         return self.get_age() >= vintage_threshold
 
 

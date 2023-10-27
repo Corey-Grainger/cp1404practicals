@@ -14,10 +14,8 @@ class Car:
         self.fuel = fuel
         self._odometer = 0
 
-    # Task 5
     def __str__(self):
         """Returns a string version of car object"""
-        # Task 6
         return f"{self.name}, fuel={self.fuel}, odometer={self._odometer}"
 
     def add_fuel(self, amount):
