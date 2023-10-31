@@ -39,7 +39,7 @@ def main():
             print("Let's add a new project")
             add_a_project(projects)
         elif menu_choice == "U":
-            display_projects_with_indexes()
+            update_project(projects)
         else:
             print("Invalid selection")
         print(MENU)
@@ -101,6 +101,7 @@ def get_valid_date(prompt):
 
 
 def add_a_project(projects):
+    """Add a new project to projects."""
     name = get_valid_string()
     start_date = get_valid_date("Start date (dd/mm/yyyy): ")
     priority = get_valid_number(1, 10, "Priority: ")
@@ -110,6 +111,7 @@ def add_a_project(projects):
 
 
 def get_valid_string():
+    """Get a non-empty string."""
     input_string = input("Name: ")
     while input_string == "":
         print("Name cannot be blank")
@@ -118,13 +120,43 @@ def get_valid_string():
 
 
 def get_valid_number(minimum, maximum, prompt):
+    """Get a valid number between minimum and maximum inclusive."""
     number = int(input(prompt))
     return number
 
 
 def get_valid_cost_estimate():
+    """Get a cost estimate that isn't negative."""
     cost_estimate = float(input("Cost estimate: $"))
     return cost_estimate
+
+
+def update_project(projects):
+    """Update the priority and/or completion percentage of a project."""
+    for i, project in enumerate(projects):
+        print(f"{i} {project}")
+    project_choice = get_valid_number(0, len(projects) - 1, "Project choice: ")
+    new_percentage = get_valid_new_value(0, 100, "New Percentage: ", projects[project_choice].completion_percentage)
+    projects[project_choice].completion_percentage = new_percentage
+    new_priority = get_valid_new_value(0, 100, "New Priority: ", projects[project_choice].priority)
+    projects[project_choice].priority = new_priority
+
+
+def get_valid_new_value(minimum, maximum, prompt, project_value):
+    """Get a valid number between minimum and maximum inclusive."""
+    is_valid_value = False
+    while not is_valid_value:
+        number = input(prompt)
+        if number != "":
+            try:
+                number = int(number)
+                is_valid_value = True
+            except ValueError:
+                pass
+        else:
+            number = project_value
+            is_valid_value = True
+    return number
 
 
 main()
