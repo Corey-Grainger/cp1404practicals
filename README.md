@@ -18,7 +18,11 @@ This repository contains programs and example code for work undertaken for CP140
   that you would otherwise have missed.
 
 ### Links to associated CP1404 Github Pages
+
 #### Programming Guides for IT@JCU
+
 https://github.com/CP1404/Starter/wiki
+
 #### Practicals for CP1404
+
 https://github.com/CP1404/Practicals/tree/master
