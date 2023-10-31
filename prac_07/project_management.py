@@ -1,5 +1,8 @@
 """CP1404 Week 07 Practicals
-Project Management Program"""
+Project Management Program
+Estimate: 3 hours
+Commenced: 6:55pm
+Completed: """
 
 import datetime
 from project import Project
@@ -30,7 +33,8 @@ def main():
         elif menu_choice == "D":
             display_projects(projects)
         elif menu_choice == "F":
-            print("filter projects")
+            selected_filter_date = get_valid_date()
+            filter_projects_by_date(projects, selected_filter_date)
         elif menu_choice == "A":
             print("Add new project")
         else:
@@ -66,6 +70,7 @@ def save_projects(filename, projects):
 
 
 def get_valid_filename():
+    """Get a valid filename like filename.txt"""
     filename = input("Enter filename to load (e.g. filename.txt): ")
     return filename
 
@@ -78,5 +83,21 @@ def display_projects(projects):
     print("Completed projects: ")
     for project in [project for project in projects if project.is_complete()]:
         print(f"\t{project}")
+
+
+def filter_projects_by_date(projects, date):
+    """Display projects started after date"""
+    date_filtered_projects = [project for project in projects if project.start_date > date]
+    date_filtered_projects.sort(key=attrgetter("start_date"))
+    for project in date_filtered_projects:
+        print(f"\t{project}")
+
+
+def get_valid_date():
+    """Get a valid date."""
+    # Extract the date from a user input like 11/12/13
+    date = datetime.datetime.strptime(input("Show projects that start after date (dd/mm/yyyy): "), "%d/%m/%Y").date()
+    return date
+
 
 main()

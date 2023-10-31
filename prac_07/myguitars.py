@@ -2,7 +2,7 @@
 My Guitars program
 Estimated: 35 minutes
 Started: 3:40pm
-Completed: """
+Completed: 4:08pm"""
 
 from guitar import Guitar
 import csv
