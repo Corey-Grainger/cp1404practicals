@@ -19,7 +19,7 @@ def main():
             if projects:
                 continue_choice = input("Unsaved projects will be lost, continue? (y/N): ").lower()
                 if continue_choice == "y":
-                    file_to_load = input("Enter filename to load (e.g. filename.txt): ")
+                    file_to_load = get_valid_filename()
                     load_project_file(file_to_load)
                 else:
                     print("File loading aborted")
@@ -36,6 +36,11 @@ def main():
         print(MENU)
         menu_choice = input(">>> ").upper()
     print("Thank you for using custom-built project management software")
+
+
+def get_valid_filename():
+    filename = input("Enter filename to load (e.g. filename.txt): ")
+    return filename
 
 
 def load_project_file(filename):
