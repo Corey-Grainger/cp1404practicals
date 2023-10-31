@@ -38,6 +38,8 @@ def main():
         elif menu_choice == "A":
             print("Let's add a new project")
             add_a_project(projects)
+        elif menu_choice == "U":
+            display_projects_with_indexes()
         else:
             print("Invalid selection")
         print(MENU)
@@ -47,7 +49,7 @@ def main():
 
 
 def load_project_file(filename):
-    """Load projects from filename sorted by date."""
+    """Load projects from filename."""
     with open(filename) as in_file:
         # Ignores first line of row headings
         projects = []
@@ -56,7 +58,6 @@ def load_project_file(filename):
             parts = line.split("\t")
             parts[1] = datetime.datetime.strptime(parts[1], "%d/%m/%Y").date()
             projects.append(Project(parts[0], parts[1], int(parts[2]), float(parts[3]), int(parts[4])))
-    projects.sort()
     return projects
 
 
@@ -79,10 +80,10 @@ def get_valid_filename():
 def display_projects(projects):
     """Displays projects """
     print("Incomplete projects: ")
-    for project in [project for project in projects if not project.is_complete()]:
+    for project in sorted([project for project in projects if not project.is_complete()]):
         print(f"\t{project}")
     print("Completed projects: ")
-    for project in [project for project in projects if project.is_complete()]:
+    for project in sorted([project for project in projects if project.is_complete()]):
         print(f"\t{project}")
 
 
@@ -90,6 +91,7 @@ def filter_projects_by_date(projects, date):
     """Display projects started after date"""
     for project in sorted([project for project in projects if project.start_date > date], key=attrgetter("start_date")):
         print(f"\t{project}")
+
 
 def get_valid_date(prompt):
     """Get a valid date."""
@@ -123,5 +125,6 @@ def get_valid_number(minimum, maximum, prompt):
 def get_valid_cost_estimate():
     cost_estimate = float(input("Cost estimate: $"))
     return cost_estimate
+
 
 main()
