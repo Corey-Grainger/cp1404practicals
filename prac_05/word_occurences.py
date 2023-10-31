@@ -11,12 +11,12 @@ for character in string:
         string = string.replace(character, '')
 words = string.split()
 words.sort()
-words_to_characters_in_word = {}
+words_to_count = {}
 for word in words:
     try:
-        words_to_characters_in_word[word] += 1
+        words_to_count[word] += 1
     except KeyError:
-        words_to_characters_in_word[word] = 1
+        words_to_count[word] = 1
 longest_word_length = max((len(word) for word in words))
-for word, count in words_to_characters_in_word.items():
+for word, count in words_to_count.items():
     print(f"{word:{longest_word_length}} : {count}")
