@@ -21,9 +21,7 @@ class Project:
                 f"Cost Estimate={self.cost_estimate}, Completion Percentage={self.completion_percentage}")
 
     def __str__(self):
-        return (
-            f"{self.name}, a priority {self.priority} project was estimated to cost {self.cost_estimate:.2f}. It started on "
-            f"{self.start_date.__format__('%d/%m/%Y')} and is {self.completion_percentage}% complete.")
+        return f"{self.name}, start: {self.start_date}, priority {self.priority}, estimate: ${self.cost_estimate:.2f}, completion: {self.completion_percentage}%"
 
     def __lt__(self, other):
         return self.priority < other.priority
