@@ -13,22 +13,28 @@ def main():
     """Manage and store projects for a user"""
     print(MENU)
     projects = load_project_file(DEFAULT_FILENAME)
-    choice = input(">>> ").upper()
-    while choice != "Q":
-        if choice == "L":
-            print("Load")
-        elif choice == "S":
+    menu_choice = input(">>> ").upper()
+    while menu_choice != "Q":
+        if menu_choice == "L":
+            if projects:
+                continue_choice = input("Unsaved projects will be lost, continue? (y/N): ").lower()
+                if continue_choice == "y":
+                    file_to_load = input("Enter filename to load (e.g. filename.txt): ")
+                    load_project_file(file_to_load)
+                else:
+                    print("File loading aborted")
+        elif menu_choice == "S":
             print("Save")
-        elif choice == "D":
+        elif menu_choice == "D":
             display_projects(projects)
-        elif choice == "F":
+        elif menu_choice == "F":
             print("filter projects")
-        elif choice == "A":
+        elif menu_choice == "A":
             print("Add new project")
         else:
             print("Invalid selection")
         print(MENU)
-        choice = input(">>> ").upper()
+        menu_choice = input(">>> ").upper()
     print("Thank you for using custom-built project management software")
 
 
@@ -42,13 +48,17 @@ def load_project_file(filename):
             parts = line.split("\t")
             parts[1] = datetime.datetime.strptime(parts[1], "%d/%m/%Y").date()
             projects.append(Project(parts[0], parts[1], int(parts[2]), float(parts[3]), int(parts[4])))
-    projects.sort(key=attrgetter("priority"))
+    projects.sort()
     return projects
 
 
 def display_projects(projects):
-    for i, project in enumerate(projects):
-        print(i, project)
-
+    """Displays projects """
+    print("Incomplete projects: ")
+    for project in [project for project in projects if not project.is_complete()]:
+        print(f"\t{project}")
+    print("Completed projects: ")
+    for project in [project for project in projects if project.is_complete()]:
+        print(f"\t{project}")
 
 main()
