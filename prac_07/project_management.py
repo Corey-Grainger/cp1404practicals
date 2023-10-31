@@ -42,13 +42,13 @@ def load_project_file(filename):
             parts = line.split("\t")
             parts[1] = datetime.datetime.strptime(parts[1], "%d/%m/%Y").date()
             projects.append(Project(parts[0], parts[1], int(parts[2]), float(parts[3]), int(parts[4])))
-    projects.sort(key=attrgetter("start_date"))
+    projects.sort(key=attrgetter("priority"))
     return projects
 
 
 def display_projects(projects):
-    for project in projects:
-        print(project)
+    for i, project in enumerate(projects):
+        print(i, project)
 
 
 main()
