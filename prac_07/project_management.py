@@ -33,10 +33,11 @@ def main():
         elif menu_choice == "D":
             display_projects(projects)
         elif menu_choice == "F":
-            selected_filter_date = get_valid_date()
+            selected_filter_date = get_valid_date("Show projects that start after date (dd/mm/yyyy): ")
             filter_projects_by_date(projects, selected_filter_date)
         elif menu_choice == "A":
-            print("Add new project")
+            print("Let's add a new project")
+            add_a_project(projects)
         else:
             print("Invalid selection")
         print(MENU)
@@ -87,17 +88,40 @@ def display_projects(projects):
 
 def filter_projects_by_date(projects, date):
     """Display projects started after date"""
-    date_filtered_projects = [project for project in projects if project.start_date > date]
-    date_filtered_projects.sort(key=attrgetter("start_date"))
-    for project in date_filtered_projects:
+    for project in sorted([project for project in projects if project.start_date > date], key=attrgetter("start_date")):
         print(f"\t{project}")
 
-
-def get_valid_date():
+def get_valid_date(prompt):
     """Get a valid date."""
     # Extract the date from a user input like 11/12/13
-    date = datetime.datetime.strptime(input("Show projects that start after date (dd/mm/yyyy): "), "%d/%m/%Y").date()
+    date = datetime.datetime.strptime(input(prompt), "%d/%m/%Y").date()
     return date
 
+
+def add_a_project(projects):
+    name = get_valid_string()
+    start_date = get_valid_date("Start date (dd/mm/yyyy): ")
+    priority = get_valid_number(1, 10, "Priority: ")
+    cost_estimate = get_valid_cost_estimate()
+    completion_percentage = get_valid_number(0, 100, "Percent complete: ")
+    projects.append(Project(name, start_date, priority, cost_estimate, completion_percentage))
+
+
+def get_valid_string():
+    input_string = input("Name: ")
+    while input_string == "":
+        print("Name cannot be blank")
+        input_string = input("Name: ")
+    return input_string
+
+
+def get_valid_number(minimum, maximum, prompt):
+    number = int(input(prompt))
+    return number
+
+
+def get_valid_cost_estimate():
+    cost_estimate = float(input("Cost estimate: $"))
+    return cost_estimate
 
 main()
