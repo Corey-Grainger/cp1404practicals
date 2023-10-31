@@ -7,7 +7,7 @@ from datetime import date
 class Project:
     """Represent a project object."""
 
-    def __init__(self, name: str, start_date, priority: int, cost_estimate: float, completion_percentage: int):
+    def __init__(self, name: str, start_date: date, priority: int, cost_estimate: float, completion_percentage: int):
         """Construct a project object."""
         self.name = name
         self.start_date = start_date
@@ -23,7 +23,7 @@ class Project:
     def __str__(self):
         return (
             f"{self.name}, a priority {self.priority} project was estimated to cost {self.cost_estimate:.2f}. It started on "
-            f"{self.start_date} and is {self.completion_percentage}% complete.")
+            f"{self.start_date.__format__('%d/%m/%Y')} and is {self.completion_percentage}% complete.")
 
     def __lt__(self, other):
         return self.priority < other.priority

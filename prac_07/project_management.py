@@ -1,8 +1,9 @@
 """CP1404 Week 07 Practicals
 Project Management Program"""
 
-from datetime import date
+import datetime
 from project import Project
+from operator import attrgetter
 
 MENU = "(L)oad projects\n(S)ave projects\n(D)isplay projects\n(F)ilter projects by date\n(A)dd new project\n(U)pdate project\n(Q)uit"
 DEFAULT_FILENAME = "projects.txt"
@@ -32,14 +33,16 @@ def main():
 
 
 def load_project_file(filename):
-    """Load projects from filename"""
+    """Load projects from filename sorted by date."""
     with open(filename) as in_file:
         # Ignores first line of row headings
         projects = []
         in_file.readline()
         for line in in_file:
             parts = line.split("\t")
+            parts[1] = datetime.datetime.strptime(parts[1], "%d/%m/%Y").date()
             projects.append(Project(parts[0], parts[1], int(parts[2]), float(parts[3]), int(parts[4])))
+    projects.sort(key=attrgetter("start_date"))
     return projects
 
 
