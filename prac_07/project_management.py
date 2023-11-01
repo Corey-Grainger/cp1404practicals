@@ -3,9 +3,11 @@ Project Management Program
 Estimate: 3 hours
 Commenced: 6:55pm
 Break: 9:30pm
-Recommenced 10:00am
-Completed: 11:45am next day
-Some of this time was spent researching how to use the fnmatch function."""
+Recommenced: 10:00am next day
+Break: 11:45am next day
+Recommenced: 9:30pm
+Complete 10:06pm
+Some of this time was spent researching how to use the fnmatch function rather than actively writing the program."""
 
 import datetime
 import csv
@@ -68,11 +70,11 @@ def load_project_file(filename):
             for line in in_file:
                 parts = line.split("\t")
                 parts[1] = datetime.datetime.strptime(parts[1], "%d/%m/%Y").date()
-                # previous line makes parts[1] a valid date
+                # preceding line makes parts[1] a valid date
                 projects.append(Project(parts[0], parts[1], int(parts[2]), float(parts[3]), int(parts[4])))
+            print(f"{len(projects)} projects loaded from {filename}.")
     except FileNotFoundError:
         print("Filename selected for loading was not found.")
-    print(f"{len(projects)} projects loaded from {filename}")
     return projects
 
 
@@ -83,8 +85,10 @@ def save_projects(filename, projects):
         # add the appropriate headers to the file
         writer.writerow(["Name", "Start Date", "Priority", "Cost Estimate", "Completion Percentage"])
         for project in projects:
-            writer.writerow([project.name, project.start_date.strftime('%d/%m/%Y'), project.priority, project.cost_estimate, project.completion_percentage])
-    print(f"{len(projects)} projects saves to {filename}")
+            writer.writerow(
+                [project.name, project.start_date.strftime('%d/%m/%Y'), project.priority, project.cost_estimate,
+                 project.completion_percentage])
+    print(f"{len(projects)} projects saved to {filename}.")
 
 
 def get_valid_filename(prompt):
@@ -166,7 +170,7 @@ def get_valid_number(minimum, maximum, number_name):
             else:
                 print(f"{number_name} must be > {minimum} and < {maximum}")
         except ValueError:
-            print("Invalid input")
+            print("Invalid input.")
     return number  # Error checking prevents variable being unassigned
 
 
@@ -179,9 +183,9 @@ def get_valid_cost_estimate(minimum):
             if cost_estimate >= minimum:
                 is_valid_input = True
             else:
-                print(f"Cost estimate cannot be less than {minimum}")
+                print(f"Cost estimate cannot be less than {minimum}.")
         except ValueError:
-            print("Invalid input")
+            print("Invalid input.")
     return cost_estimate  # Error checking prevents variable being unassigned
 
 
