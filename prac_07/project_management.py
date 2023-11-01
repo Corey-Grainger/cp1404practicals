@@ -143,7 +143,7 @@ def update_project(projects):
 
 
 def get_valid_new_value(minimum, maximum, prompt, project_value):
-    """Get a valid number between minimum and maximum inclusive."""
+    """Get a valid new value for project_value between minimum and maximum inclusive or return the previous value if an empty string is entered."""
     is_valid_value = False
     while not is_valid_value:
         number = input(prompt)
