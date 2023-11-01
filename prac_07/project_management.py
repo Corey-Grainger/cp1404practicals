@@ -8,6 +8,7 @@ Completed: 11:45am next day
 Some of this time was spent researching how to use the fnmatch function."""
 
 import datetime
+import csv
 from operator import attrgetter
 from fnmatch import fnmatch
 from project import Project
@@ -78,16 +79,18 @@ def load_project_file(filename):
 def save_projects(filename, projects):
     """Save projects to filename."""
     with open(filename, 'w', encoding="UTF-8") as out_file:
-        print("Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)
+        writer = csv.writer(out_file, delimiter="\t")
+        # add the appropriate headers to the file
+        writer.writerow(["Name", "Start Date", "Priority", "Cost Estimate", "Completion Percentage"])
         for project in projects:
-            print(f"{project.name}\t{project.start_date.strftime('%d/%m/%Y')}\t{project.priority}\t"
-                  f"{project.cost_estimate}\t{project.completion_percentage}", file=out_file)
+            writer.writerow([project.name, project.start_date.strftime('%d/%m/%Y'), project.priority, project.cost_estimate, project.completion_percentage])
     print(f"{len(projects)} projects saves to {filename}")
 
 
 def get_valid_filename(prompt):
     """Get a valid filename like filename.txt"""
     filename = input(prompt)
+    # check that filename matches format like filename.txt
     while not fnmatch(filename, "*.txt"):
         print("Invalid filename.")
         filename = input(prompt)
@@ -98,19 +101,22 @@ def display_projects(projects):
     """Displays incomplete projects and then complete projects sorted into """
     try:
         print("Incomplete projects: ")
+        # print each project in projects sorted by priority if the project is incomplete
         for project in sorted([project for project in projects if not project.is_complete()]):
             print(f"\t{project}")
         print("Completed projects: ")
+        # print each project in projects sorted by priority if the project is complete
         for project in sorted([project for project in projects if project.is_complete()]):
             print(f"\t{project}")
     except TypeError:
         print("No projects to display.")
 
 
-def filter_projects_by_date(projects, date):
+def filter_projects_by_date(projects, selected_filter_date):
     """Display projects started after date"""
     try:
-        for project in sorted([project for project in projects if project.start_date > date],
+        # print each project in projects sorted by the date if the project start date is after date
+        for project in sorted([project for project in projects if project.start_date > selected_filter_date],
                               key=attrgetter("start_date")):
             print(f"\t{project}")
     except TypeError:
@@ -194,7 +200,7 @@ def update_project(projects):
 
 
 def get_valid_new_value(minimum, maximum, number_name, current_value):
-    """Get a valid new value for project_value between minimum and maximum inclusive or return the previous value if
+    """Get a valid value between minimum and maximum inclusive or return the current value if
     an empty string is entered."""
     is_valid_value = False
     while not is_valid_value:
@@ -207,7 +213,7 @@ def get_valid_new_value(minimum, maximum, number_name, current_value):
                 else:
                     print(f"{number_name} must be > {minimum} and < {maximum}. Enter nothing to keep existing value.")
             except ValueError:
-                print("Invalid value.")
+                print("Invalid value. Must be a whole number.")
         else:
             number = current_value
             is_valid_value = True
