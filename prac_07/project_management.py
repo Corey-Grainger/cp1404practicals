@@ -117,16 +117,13 @@ def filter_projects_by_date(projects, date):
 
 
 def get_valid_date(prompt):
-    """Get a valid date."""
+    """Get a valid date that is after the current date."""
     # Extract the date from a user input like 11/12/13
     is_valid_date = False
     while not is_valid_date:
         try:
             date = datetime.datetime.strptime(input(prompt), "%d/%m/%Y").date()
-            if date > datetime.date.today():
-                print("Start date cannot be after today")
-            else:
-                is_valid_date = True
+            is_valid_date = True
         except ValueError:
             print("Invalid date.  Date must be in format dd/mm/yyyy")
     return date  # Error checking prevents variable being unassigned

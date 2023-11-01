@@ -41,7 +41,8 @@ def main():
 
     # Loop through and display all languages (using their str method)
     for language in languages:
-        print(language)
+        print(language.__str__())
+
 
 
 main()
