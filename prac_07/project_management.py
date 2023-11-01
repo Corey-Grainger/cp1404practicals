@@ -4,7 +4,8 @@ Estimate: 3 hours
 Commenced: 6:55pm
 Break: 9:30pm
 Recommenced 10:00am
-Completed: 11:00am next day"""
+Completed: 11:45am next day
+Some of this time was spent researching how to use the fnmatch function."""
 
 import datetime
 from project import Project
@@ -19,7 +20,7 @@ DEFAULT_FILENAME = "projects.txt"
 
 
 def main():
-    """Manage and store projects for a user"""
+    """Manage and store projects for a user."""
     print(MENU)
     projects = load_project_file(DEFAULT_FILENAME)
     menu_choice = input(">>> ").upper()
