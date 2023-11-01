@@ -15,7 +15,7 @@ LOWEST_PRIORITY = 10
 HIGHEST_PRIORITY = 1
 MENU = ("(L)oad projects\n(S)ave projects\n(D)isplay projects\n"
         "(F)ilter projects by date\n(A)dd new project\n(U)pdate project\n(Q)uit")
-DEFAULT_FILENAME = "project.txt"
+DEFAULT_FILENAME = "projects.txt"
 
 
 def main():
@@ -39,7 +39,7 @@ def main():
             filename = get_valid_filename("Enter name for save file (e.g. filename.txt): ")
             save_projects(filename, projects)
         elif menu_choice == "D":
-                display_projects(projects)
+            display_projects(projects)
         elif menu_choice == "F":
             selected_filter_date = get_valid_date("Show projects that start after date (dd/mm/yyyy): ")
             filter_projects_by_date(projects, selected_filter_date)
@@ -58,19 +58,19 @@ def main():
 
 def load_project_file(filename):
     """Load projects from filename."""
+    projects = []
     try:
         with open(filename) as in_file:
             # Ignores first line of row headings
-            projects = []
             in_file.readline()
             for line in in_file:
                 parts = line.split("\t")
                 parts[1] = datetime.datetime.strptime(parts[1], "%d/%m/%Y").date()
+                # previous line makes parts[1] a valid date
                 projects.append(Project(parts[0], parts[1], int(parts[2]), float(parts[3]), int(parts[4])))
-            return projects
     except FileNotFoundError:
         print("Filename selected for loading was not found.")
-        pass
+    return projects
 
 
 def save_projects(filename, projects):
@@ -108,10 +108,12 @@ def display_projects(projects):
 def filter_projects_by_date(projects, date):
     """Display projects started after date"""
     try:
-        for project in sorted([project for project in projects if project.start_date > date], key=attrgetter("start_date")):
+        for project in sorted([project for project in projects if project.start_date > date],
+                              key=attrgetter("start_date")):
             print(f"\t{project}")
     except TypeError:
         print("No projects to display.")
+
 
 def get_valid_date(prompt):
     """Get a valid date."""
@@ -126,20 +128,20 @@ def get_valid_date(prompt):
                 is_valid_date = True
         except ValueError:
             print("Invalid date.  Date must be in format dd/mm/yyyy")
-    return date
+    return date  # Error checking prevents variable being unassigned
 
 
 def add_new_project(projects):
     """Add a new project to projects."""
-    name = get_valid_string()
+    name = get_valid_name()
     start_date = get_valid_date("Start date (dd/mm/yyyy): ")
-    priority = get_valid_number(HIGHEST_PRIORITY, LOWEST_PRIORITY, "Priority: ")
+    priority = get_valid_number(HIGHEST_PRIORITY, LOWEST_PRIORITY, "Priority")
     cost_estimate = get_valid_cost_estimate(0)
-    completion_percentage = get_valid_number(0, 100, "Percent complete: ")
+    completion_percentage = get_valid_number(0, 100, "Percentage completion")
     projects.append(Project(name, start_date, priority, cost_estimate, completion_percentage))
 
 
-def get_valid_string():
+def get_valid_name():
     """Get a non-empty string."""
     input_string = input("Name: ")
     while input_string == "":
@@ -148,19 +150,19 @@ def get_valid_string():
     return input_string
 
 
-def get_valid_number(minimum, maximum, prompt):
+def get_valid_number(minimum, maximum, number_name):
     """Get a valid number between minimum and maximum inclusive."""
     is_valid_input = False
     while not is_valid_input:
         try:
-            number = int(input(prompt))
+            number = int(input(f"{number_name}: "))
             if minimum <= number <= maximum:
                 is_valid_input = True
             else:
-                print(f"Input must > {minimum} and < {maximum}")
+                print(f"{number_name} must be > {minimum} and < {maximum}")
         except ValueError:
             print("Invalid input")
-    return number
+    return number  # Error checking prevents variable being unassigned
 
 
 def get_valid_cost_estimate(minimum):
@@ -184,27 +186,31 @@ def update_project(projects):
         for i, project in enumerate(projects):
             print(f"{i} {project}")
         project_choice = get_valid_number(0, len(projects) - 1, "Project choice: ")
-        new_percentage = get_valid_new_value(0, 100, "New Percentage: ", projects[project_choice].completion_percentage)
+        new_percentage = get_valid_new_value(0, 100, "New Percentage", projects[project_choice].completion_percentage)
         projects[project_choice].completion_percentage = new_percentage
-        new_priority = get_valid_new_value(0, 100, "New Priority: ", projects[project_choice].priority)
+        new_priority = get_valid_new_value(0, 100, "New Priority", projects[project_choice].priority)
         projects[project_choice].priority = new_priority
     except TypeError:
         print("No projects to display.")
 
 
-def get_valid_new_value(minimum, maximum, prompt, project_value):
-    """Get a valid new value for project_value between minimum and maximum inclusive or return the previous value if an empty string is entered."""
+def get_valid_new_value(minimum, maximum, number_name, current_value):
+    """Get a valid new value for project_value between minimum and maximum inclusive or return the previous value if
+    an empty string is entered."""
     is_valid_value = False
     while not is_valid_value:
-        number = input(prompt)
+        number = input(f"{number_name}: ")
         if number != "":
             try:
                 number = int(number)
-                is_valid_value = True
+                if minimum <= number <= maximum:
+                    is_valid_value = True
+                else:
+                    print(f"{number_name} must be > {minimum} and < {maximum}. Enter nothing to keep existing value.")
             except ValueError:
-                pass
+                print(f"Invalid value")
         else:
-            number = project_value
+            number = current_value
             is_valid_value = True
     return number  # Error checking prevents variable being unassigned
 
