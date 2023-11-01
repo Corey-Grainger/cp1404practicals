@@ -6,9 +6,9 @@ It also prints the Python version in the run output (may be mixed in with Kivy o
 The Python version should be 3.x (not 2.x).
 """
 
+import sys
 from kivy.app import App
 from kivy.uix.button import Button
-import sys
 
 
 class CheckSetupApp(App):

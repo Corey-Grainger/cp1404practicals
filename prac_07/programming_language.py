@@ -36,7 +36,7 @@ def run_tests():
     print("The dynamically typed languages are:")
     for language in languages:
         if language.is_dynamic():
-            print(language.__str__())
+            print(language)
 
 
 if __name__ == "__main__":

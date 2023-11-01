@@ -8,9 +8,9 @@ Completed: 11:45am next day
 Some of this time was spent researching how to use the fnmatch function."""
 
 import datetime
-from project import Project
 from operator import attrgetter
 from fnmatch import fnmatch
+from project import Project
 
 LOWEST_PRIORITY = 10
 HIGHEST_PRIORITY = 1
@@ -61,7 +61,7 @@ def load_project_file(filename):
     """Load projects from filename."""
     projects = []
     try:
-        with open(filename) as in_file:
+        with open(filename, encoding="UTF-8") as in_file:
             # Ignores first line of row headings
             in_file.readline()
             for line in in_file:
@@ -71,15 +71,16 @@ def load_project_file(filename):
                 projects.append(Project(parts[0], parts[1], int(parts[2]), float(parts[3]), int(parts[4])))
     except FileNotFoundError:
         print("Filename selected for loading was not found.")
+    print(f"{len(projects)} projects loaded from {filename}")
     return projects
 
 
 def save_projects(filename, projects):
     """Save projects to filename."""
-    with open(filename, 'w') as out_file:
+    with open(filename, 'w', encoding="UTF-8") as out_file:
         print("Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)
         for project in projects:
-            print(f"{project.name}\t{project.start_date.__format__('%d/%m/%Y')}\t{project.priority}\t"
+            print(f"{project.name}\t{project.start_date.strftime('%d/%m/%Y')}\t{project.priority}\t"
                   f"{project.cost_estimate}\t{project.completion_percentage}", file=out_file)
     print(f"{len(projects)} projects saves to {filename}")
 
@@ -169,10 +170,10 @@ def get_valid_cost_estimate(minimum):
     while not is_valid_input:
         try:
             cost_estimate = float(input("Cost estimate: $"))
-            if cost_estimate > 0:
+            if cost_estimate >= minimum:
                 is_valid_input = True
             else:
-                print("Cost estimate must be > 0")
+                print(f"Cost estimate cannot be less than {minimum}")
         except ValueError:
             print("Invalid input")
     return cost_estimate  # Error checking prevents variable being unassigned
@@ -206,7 +207,7 @@ def get_valid_new_value(minimum, maximum, number_name, current_value):
                 else:
                     print(f"{number_name} must be > {minimum} and < {maximum}. Enter nothing to keep existing value.")
             except ValueError:
-                print(f"Invalid value")
+                print("Invalid value.")
         else:
             number = current_value
             is_valid_value = True
