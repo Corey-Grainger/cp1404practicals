@@ -7,7 +7,8 @@ Recommenced: 10:00am next day
 Break: 11:45am next day
 Recommenced: 9:30pm
 Complete 10:06pm
-Some of this time was spent researching how to use the fnmatch function rather than actively writing the program."""
+Some of this time was spent researching how to use the fnmatch function rather than actively writing the program.
+Testing was the element that took a lot more time that I anticipated. """
 
 import datetime
 import csv
@@ -56,7 +57,14 @@ def main():
             print("Invalid selection")
         print(MENU)
         menu_choice = input(">>> ").upper()
-    save_projects(DEFAULT_FILENAME, projects)
+    save_choice = input(f"Save current projects to {DEFAULT_FILENAME} (y/n)? "
+                        f"This will overwrite existing save data.").upper()
+    # Error checking prevents accidental loss of data
+    while save_choice != "Y" and save_choice != "N":
+        save_choice = input(f"Save current projects to {DEFAULT_FILENAME} (y/n)? "
+                            f"Saving will overwrite existing save data in {DEFAULT_FILENAME}.").upper()
+    if save_choice == "Y":
+        save_projects(DEFAULT_FILENAME, projects)
     print("Thank you for using custom-built project management software")
 
 
