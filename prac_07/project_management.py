@@ -30,16 +30,12 @@ def main():
     menu_choice = input(">>> ").upper()
     while menu_choice != "Q":
         if menu_choice == "L":
-            if projects:
-                continue_choice = input("Unsaved projects will be lost, continue? (y/N): ").upper()
-                if continue_choice == "Y":
-                    filename = get_valid_filename("Enter filename to load (e.g. filename.txt): ")
-                    projects = load_project_file(filename)
-                else:
-                    print("File loading aborted.")
-            else:
+            continue_choice = get_valid_choice("Unsaved projects will be lost. Continue? (y/n): ")
+            if continue_choice == "Y":
                 filename = get_valid_filename("Enter filename to load (e.g. filename.txt): ")
                 projects = load_project_file(filename)
+            else:
+                print("File loading cancelled.")
         elif menu_choice == "S":
             filename = get_valid_filename("Enter name for save file (e.g. filename.txt): ")
             save_projects(filename, projects)
@@ -57,15 +53,20 @@ def main():
             print("Invalid selection")
         print(MENU)
         menu_choice = input(">>> ").upper()
-    save_choice = input(f"Save current projects to {DEFAULT_FILENAME} (y/n)? "
-                        f"This will overwrite existing save data.").upper()
-    # Error checking prevents accidental loss of data
-    while save_choice != "Y" and save_choice != "N":
-        save_choice = input(f"Save current projects to {DEFAULT_FILENAME} (y/n)? "
-                            f"Saving will overwrite existing save data in {DEFAULT_FILENAME}.").upper()
+    # Error checking of save_choice helps prevent accidental loss of data
+    save_choice = get_valid_choice(
+        f"Saving will overwrite existing save data in {DEFAULT_FILENAME}.  Save projects? (y/n)? ")
     if save_choice == "Y":
         save_projects(DEFAULT_FILENAME, projects)
     print("Thank you for using custom-built project management software")
+
+
+def get_valid_choice(prompt):
+    """Get a valid choice, either Y or N."""
+    save_choice = input(prompt).upper()
+    while save_choice != "Y" and save_choice != "N":
+        save_choice = input(prompt).upper()
+    return save_choice
 
 
 def load_project_file(filename):
@@ -80,7 +81,6 @@ def load_project_file(filename):
                 parts[1] = datetime.datetime.strptime(parts[1], "%d/%m/%Y").date()
                 # preceding line makes parts[1] a valid date
                 projects.append(Project(parts[0], parts[1], int(parts[2]), float(parts[3]), int(parts[4])))
-            print(f"{len(projects)} projects loaded from {filename}.")
     except FileNotFoundError:
         print("Filename selected for loading was not found.")
     return projects
@@ -96,7 +96,6 @@ def save_projects(filename, projects):
             writer.writerow(
                 [project.name, project.start_date.strftime('%d/%m/%Y'), project.priority, project.cost_estimate,
                  project.completion_percentage])
-    print(f"{len(projects)} projects saved to {filename}.")
 
 
 def get_valid_filename(prompt):
