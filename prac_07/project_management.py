@@ -82,7 +82,9 @@ def load_project_file(filename):
                 # preceding line makes parts[1] a valid date
                 projects.append(Project(parts[0], parts[1], int(parts[2]), float(parts[3]), int(parts[4])))
     except FileNotFoundError:
-        print("Filename selected for loading was not found.")
+        print("Filename selected for loading was not found. An empty list of projects was created.")
+    except IndexError:
+        print("Selected file is not correctly formatted. An empty list of projects was created")
     return projects
 
 
@@ -110,7 +112,7 @@ def get_valid_filename(prompt):
 
 def display_projects(projects):
     """Displays incomplete projects and then complete projects sorted into """
-    try:
+    if projects:
         print("Incomplete projects: ")
         # print each project in projects sorted by priority if the project is incomplete
         for project in sorted([project for project in projects if not project.is_complete()]):
@@ -119,27 +121,27 @@ def display_projects(projects):
         # print each project in projects sorted by priority if the project is complete
         for project in sorted([project for project in projects if project.is_complete()]):
             print(f"\t{project}")
-    except TypeError:
+    else:
         print("No projects to display.")
 
 
 def filter_projects_by_date(projects, selected_filter_date):
     """Display projects started after date"""
-    try:
+    if projects:
         # print each project in projects sorted by the date if the project start date is after date
         for project in sorted([project for project in projects if project.start_date > selected_filter_date],
                               key=attrgetter("start_date")):
             print(f"\t{project}")
-    except TypeError:
+    else:
         print("No projects to display.")
 
 
 def get_valid_date(prompt):
-    """Get a valid date that is after the current date."""
-    # Extract the date from a user input like 11/12/13
+    """Get a valid date."""
     is_valid_date = False
     while not is_valid_date:
         try:
+            # Extract the date from a user input like 11/12/13
             date = datetime.datetime.strptime(input(prompt), "%d/%m/%Y").date()
             is_valid_date = True
         except ValueError:
