@@ -18,8 +18,8 @@ from project import Project
 
 LOWEST_PRIORITY = 10
 HIGHEST_PRIORITY = 1
-MENU = ("(L)oad projects\n(S)ave projects\n(D)isplay projects\n"
-        "(F)ilter projects by date\n(A)dd new project\n(U)pdate project\n(Q)uit")
+MENU = ("- (L)oad projects\n- (S)ave projects\n- (D)isplay projects\n"
+        "- (F)ilter projects by date\n- (A)dd new project\n- (U)pdate project\n- (Q)uit")
 DEFAULT_FILENAME = "projects.txt"
 
 
@@ -201,8 +201,7 @@ def get_valid_cost_estimate(minimum):
 def update_project(projects):
     """Update the priority and/or completion percentage of a project."""
     try:
-        for i, project in enumerate(projects):
-            print(f"{i} {project}")
+        display_numbered_projects(projects)
         project_choice = get_valid_number(0, len(projects) - 1, "Project choice: ")
         new_percentage = get_valid_new_value(0, 100, "New Percentage", projects[project_choice].completion_percentage)
         projects[project_choice].completion_percentage = new_percentage
@@ -210,6 +209,12 @@ def update_project(projects):
         projects[project_choice].priority = new_priority
     except TypeError:
         print("No projects to display.")
+
+
+def display_numbered_projects(projects):
+    """Displays each project with its index."""
+    for i, project in enumerate(projects):
+        print(f"{i} {project}")
 
 
 def get_valid_new_value(minimum, maximum, number_name, current_value):
