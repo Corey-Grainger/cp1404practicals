@@ -2,7 +2,7 @@
 Convert Miles to Kilometres Program
 Estimated = 20 minutes
 Time Commenced 7:21pm
-Time Completed: """
+Time Completed: 7:48"""
 
 from kivy.app import App
 from kivy.lang import Builder
