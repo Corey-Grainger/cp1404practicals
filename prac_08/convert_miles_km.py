@@ -23,14 +23,14 @@ class ConvertMilesToKm(App):
         return self.root
 
     def handle_conversion(self, value):
-        """Handles converting miles to kilometres"""
+        """Handles converting miles to kilometres."""
         try:
             self.message = str(float(value) * MILES_TO_KM_CONVERSION_RATE)
         except ValueError:
             self.message = "0.0"
 
     def handle_increment(self, input_field, increment):
-        """Handles incrementing the input_field by increment"""
+        """Handles incrementing the input_field by increment."""
         try:
             input_field.text = str(float(input_field.text) + increment)
         except ValueError:
