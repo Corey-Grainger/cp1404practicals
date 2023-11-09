@@ -22,19 +22,25 @@ class ConvertMilesToKm(App):
         self.message = ""
         return self.root
 
-    def handle_conversion(self, value):
+    def handle_conversion(self):
         """Handles converting miles to kilometres."""
-        try:
-            self.message = str(float(value) * MILES_TO_KM_CONVERSION_RATE)
-        except ValueError:
-            self.message = "0.0"
+        miles = self.validate_miles()
+        self.message = str(miles * MILES_TO_KM_CONVERSION_RATE)
 
-    def handle_increment(self, input_field, increment):
-        """Handles incrementing the input_field by increment."""
+    def validate_miles(self):
+        """Get a valid value for miles."""
         try:
-            input_field.text = str(float(input_field.text) + increment)
+            miles = float(self.root.ids.input_field.text)
+            return miles
         except ValueError:
-            input_field.text = str(0.0 + increment)
+            return 0
+
+    def handle_increment(self, increment):
+        """Handles incrementing the input_field by increment."""
+        miles = self.validate_miles() + increment
+        self.root.ids.input_field.text = str(miles)
+        self.handle_conversion()
 
 
 ConvertMilesToKm().run()
+
