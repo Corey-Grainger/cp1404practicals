@@ -4,17 +4,17 @@ BoxLayout:
         TextInput:
             id: input_field
             text: ""
-            on_text: app.handle_conversion(input_field.text)
+            on_text: app.handle_conversion(0)
         BoxLayout:
             orientation: "vertical"
             Button:
                 id: up_button
                 text: "Up"
-                on_press: app.handle_increment(input_field, 1)
+                on_press: app.handle_conversion(1)
             Button:
                 id: down_button
                 text: "Down"
-                on_press: app.handle_increment(input_field, -1)
+                on_press: app.handle_conversion(-1)
 #    Button:
 #        id: calculate_button
 #        text: "Convert miles to km"
