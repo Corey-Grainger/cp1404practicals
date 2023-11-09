@@ -4,7 +4,7 @@
 
 ### About Me
 
-I am a student undertaking a Bachelor of Information Technology at James Cook University.
+I am an student undertaking a Bachelor of Information Technology at James Cook University.
 This repository contains programs and example code for work undertaken for CP1404 Programming II using Python 3.11.
 
 ### Clean Code Tips and Lessons from CP1404
