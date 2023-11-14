@@ -2,7 +2,7 @@
 Band Class
 Estimated: 20 minutes
 Commenced 1:34pm
-Completed """
+Completed 2:03pm"""
 
 class Band():
 
