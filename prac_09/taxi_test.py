@@ -1,7 +1,8 @@
 """CP1404 Week 09 Pracs
 Taxi Class Test Program
+Estimate: 15 minutes
 Commenced: 10:10am
-Completed: 10:19am"""
+Completed: 10:21am"""
 
 from taxi import Taxi
 
