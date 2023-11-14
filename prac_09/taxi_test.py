@@ -12,5 +12,4 @@ print(my_taxi)
 my_taxi.start_fare()
 my_taxi.drive(100)
 print(my_taxi)
-current_fare = my_taxi.current_fare_distance * my_taxi.price_per_km
-print(f"Current fare for {my_taxi.name} is ${current_fare:.2f}")
+print(f"Current fare for {my_taxi.name} is ${my_taxi.get_fare():.2f}")
