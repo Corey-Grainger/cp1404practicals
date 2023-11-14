@@ -2,7 +2,7 @@
 Silver Service Taxi Class
 Estimated: 15 minutes
 Commenced: 11:45am
-Completed: """
+Completed: 12:01pm"""
 
 from taxi import Taxi
 

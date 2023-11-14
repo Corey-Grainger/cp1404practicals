@@ -1,7 +1,9 @@
 """CP1404 Week 09 Practicals
 Taxi Simulator
 Estimated: 45 minutes
-Started 3:48pm"""
+Commenced: 3:48pm
+Break: 4:06pm - 6:50pm
+Completed: 7:04pm"""
 
 from taxi import Taxi
 from silver_service_taxi import SilverServiceTaxi
