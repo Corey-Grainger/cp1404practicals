@@ -22,8 +22,9 @@ def main():
     choice = input(">>> ").lower()
     while choice != "q":
         if choice == "c":
+            print("Taxis available:")
             display_taxis(taxis)
-            current_taxi = choose_valid_taxi(taxis)
+            current_taxi = get_valid_taxi_number(len(taxis))
         elif choice == "d":
             if current_taxi:
                 fare = simulate_taxi_trip(current_taxi)
@@ -56,17 +57,18 @@ def display_taxis(taxis):
         print(f"{i} - {taxi}")
 
 
-def choose_valid_taxi(taxis):
+def get_valid_taxi_number(maximum):
     """Get a valid index for a taxi."""
-    try:
-        choice = int(input("Choose taxi: "))
-        if choice < 0 or choice > len(taxis) - 1:
+    is_valid_number = False
+    while not is_valid_number:
+        try:
+            choice = int(input("Choose taxi: "))
+            if choice >= 0 or choice <= maximum - 1:
+                is_valid_number = True
             print("Invalid taxi choice")
-            return None
-        return taxis[choice]
-    except ValueError:
-        print("Invalid taxi choice")
-        return None
+        except ValueError:
+            print("Invalid taxi choice")
+        return choice
 
 
 def get_valid_number():
@@ -77,10 +79,10 @@ def get_valid_number():
             number = float(input("Drive how far? "))
             if number >= 0:
                 is_valid_number = True
-                return number
             print("Distance cannot be negative")
         except ValueError:
             print("Distance must be a valid number")
+    return number
 
 
 main()
