@@ -24,7 +24,8 @@ def main():
         if choice == "c":
             print("Taxis available:")
             display_taxis(taxis)
-            current_taxi = get_valid_taxi_number(len(taxis))
+            taxi_choice = get_valid_taxi_number(len(taxis))
+            current_taxi = taxis[taxi_choice]
         elif choice == "d":
             if current_taxi:
                 fare = simulate_taxi_trip(current_taxi)

@@ -22,5 +22,3 @@ class SilverServiceTaxi(Taxi):
 
     def get_fare(self):
         return super().get_fare() + self.flagfall
-
-
