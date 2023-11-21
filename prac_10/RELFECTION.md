@@ -13,6 +13,6 @@
   would give students a prac that uses all of the assignment concepts together to get some feedback on before doing
   assignment 1.  This is probably more helpful for people using these concepts for the first time. 
 
-Links to code reviews:
-* [Good Code Review 1](https://github.com/gaylejuntilla/cp1404practicals/pull/5#event-10974297639)
-* [Good Code Review 2](https://github.com/Dav0-12/cp1404practicals/pull/4#event-10864654581)
+Links to good code reviews:
+* [Code Review 1](https://github.com/gaylejuntilla/cp1404practicals/pull/5#event-10974297639)
+* [Code Review 2](https://github.com/Dav0-12/cp1404practicals/pull/4#event-10864654581)
