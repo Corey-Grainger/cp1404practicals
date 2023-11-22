@@ -1,6 +1,9 @@
 """
 CP1404/CP5632 Practical
 Testing demo using assert and doctest
+Estimated: 20 minutes
+Commenced: 3:05pm
+Completed: 3:30pm
 """
 
 import doctest
